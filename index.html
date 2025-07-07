@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeNest - 初めての一人暮らしに安心をプレゼント</title>
+    <style>
+        :root {
+            /* プライマリーカラー */
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --extra-light-blue: #f0f9ff;
+            
+            /* グレー系（青みがかった） */
+            --blue-gray-900: #0f172a;
+            --blue-gray-800: #1e293b;
+            --blue-gray-600: #475569;
+            --blue-gray-500: #64748b;
+            --blue-gray-200: #e2e8f0;
+            
+            /* 白・透明 */
+            --white: #ffffff;
+            --white-90: rgba(255, 255, 255, 0.9);
+            --white-95: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: var(--blue-gray-900);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white-95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--blue-gray-200);
+            box-shadow: 0 2px 10px rgba(30, 64, 175, 0.05);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(135deg, #f8fafc 0%, var(--light-blue) 100%);
+            padding: 140px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--blue-gray-900), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--blue-gray-600);
+            font-weight: 400;
+            margin-bottom: 50px;
+        }
+
+        .hero-cta {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white);
+            padding: 20px 45px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 問題提起セクション */
+        .problems {
+            background: linear-gradient(135deg, var(--blue-gray-900) 0%, var(--blue-gray-800) 100%);
+            padding: 100px 0;
+            color: var(--white);
+        }
+
+        .problems h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--light-blue);
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 45px 35px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .problem-scenario {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--light-blue);
+        }
+
+        .problem-description {
+            color: var(--blue-gray-200);
+            line-height: 1.7;
+        }
+
+        /* 商品ヒーロー */
+        .product-hero {
+            background: linear-gradient(135deg, var(--white) 0%, var(--extra-light-blue) 100%);
+            padding: 100px 0;
+        }
+
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, var(--extra-light-blue) 0%, var(--light-blue) 100%);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(30, 64, 175, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--primary-blue);
+        }
+
+        .product-text h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--blue-gray-900);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .product-text p {
+            font-size: 1.4rem;
+            color: var(--blue-gray-600);
+            font-weight: 400;
+        }
+
+        /* ソリューションセクション */
+        .solutions {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--extra-light-blue) 100%);
+            padding: 100px 0;
+        }
+
+        .solutions h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--blue-gray-900);
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .solution-card {
+            background: var(--white);
+            border: 1px solid rgba(30, 64, 175, 0.08);
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 64, 175, 0.12);
+            border-color: rgba(30, 64, 175, 0.15);
+        }
+
+        .solution-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            border-radius: 50%;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--white);
+        }
+
+        .solution-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--blue-gray-900);
+            margin-bottom: 15px;
+        }
+
+        .solution-card p {
+            color: var(--blue-gray-600);
+            line-height: 1.7;
+        }
+
+        /* 料金セクション */
+        .pricing {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e3a8a 100%);
+            padding: 100px 0;
+            color: var(--white);
+        }
+
+        .pricing h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .pricing-card {
+            border-radius: 20px;
+            padding: 50px 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card.starter {
+            background: var(--white);
+            border: 1px solid var(--blue-gray-200);
+            color: var(--blue-gray-900);
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.08);
+        }
+
+        .pricing-card.recommended {
+            background: var(--white);
+            border: 2px solid var(--secondary-blue);
+            color: var(--blue-gray-900);
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+        }
+
+        .pricing-card.premium {
+            background: linear-gradient(135deg, #f8fafc 0%, var(--light-blue) 100%);
+            border: 2px solid var(--primary-blue);
+            color: var(--blue-gray-900);
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.12);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .badge.recommended {
+            background: var(--secondary-blue);
+            color: var(--white);
+        }
+
+        .badge.premium {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .price.starter {
+            color: var(--blue-gray-600);
+        }
+
+        .price.recommended {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .price.premium {
+            color: var(--primary-blue);
+        }
+
+        .pricing-button {
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .pricing-button.starter {
+            background: var(--blue-gray-600);
+            color: var(--white);
+        }
+
+        .pricing-button.recommended {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white);
+        }
+
+        .pricing-button.premium {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* 最終CTA */
+        .final-cta {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            padding: 100px 0;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+        }
+
+        .final-cta-button {
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 22px 55px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* フッター */
+        footer {
+            background: var(--blue-gray-900);
+            color: var(--white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-blue);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-section a {
+            color: var(--blue-gray-500);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--blue-gray-800);
+            color: var(--blue-gray-500);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .problems-grid,
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.recommended {
+                transform: none;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">SafeNest</a>
+                <a href="https://docs.google.com/forms/d/1SHmtWaVHirPunYI15_FbH1OHqNqpdaA7p65y_RYNC0o/preview" class="cta-button">今すぐ始める</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <h1>初めての一人暮らしに<br>安心をプレゼント</h1>
+            <p>選んで贈る、新しい防災体験</p>
+            <a  href="https://docs.google.com/forms/d/1SHmtWaVHirPunYI15_FbH1OHqNqpdaA7p65y_RYNC0o/preview" class="hero-cta">今すぐ安心をプレゼント</a>
+        </div>
+    </section>
+
+    <!-- 問題提起セクション -->
+    <section class="problems">
+        <div class="container">
+            <h2>こんな心配はありませんか？</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">🏠</div>
+                    <div class="problem-scenario">「息子の部屋、コンビニ弁当の容器しかない...何も準備してなさそう」</div>
+                    <div class="problem-description">80%の若者が防災対策をしていない現実。でも口うるさく言うのも...</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🎒</div>
+                    <div class="problem-scenario">「防災グッズって何を買えばいいの？使い方もわからないし...」</div>
+                    <div class="problem-description">何から始めればいいかわからない。せっかく買っても使えなければ意味がない</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🤔</div>
+                    <div class="problem-scenario">「種類が多すぎて、どれが本当に必要なのか判断できない」</div>
+                    <div class="problem-description">都市部では90%以上が在宅避難。でも適切な準備方法がわからない</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 商品ヒーロー -->
+    <section class="product-hero">
+        <div class="container">
+            <div class="product-content">
+                <div class="product-image">
+                    📦
+                </div>
+                <div class="product-text">
+                    <h2>選んで贈る、<br>新しい防災体験</h2>
+                    <p>親子で一緒に作り上げる安心のカタチ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ソリューションセクション -->
+    <section class="solutions">
+        <div class="container">
+            <h2>SafeNestが選ばれる理由</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🎁</div>
+                    <h3>子供に防災意識を育む<br>体験を提供</h3>
+                    <p>親が子供にプレゼント。<br>受け取った子供が自分好みに選べる</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📡</div>
+                    <h3>通信手段の確保を促す設計</h3>
+                    <p>災害時の連絡手段を確実に確保。<br>簡単セットアップで誰でも使える</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📋</div>
+                    <h3>その人に合わせた防災指南</h3>
+                    <p>防災士監修の個人別ハンドブック。<br>在宅避難に特化した必要最低限セット</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 料金セクション -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>プランを選んで今すぐ始める</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card starter">
+                    <h3>スタータープラン</h3>
+                    <div class="price starter">¥9,800</div>
+                    <ul style="text-align: left; margin-bottom: 20px;">
+                        <li>基本防災セット</li>
+                        <li>防災ハンドブック</li>
+                        <li>オンラインサポート</li>
+                    </ul>
+                    <a href="#" class="pricing-button starter">始める</a>
+                </div>
+                <div class="pricing-card recommended">
+                    <div class="badge recommended">推奨</div>
+                    <h3>安心プラン</h3>
+                    <div class="price recommended">¥14,800</div>
+                    <ul style="text-align: left; margin-bottom: 20px;">
+                        <li>充実防災セット</li>
+                        <li>通信機器セット</li>
+                        <li>個別防災ガイド</li>
+                        <li>24時間サポート</li>
+                    </ul>
+                    <a href="#" class="pricing-button recommended">今すぐ始める</a>
+                </div>
+                <div class="pricing-card premium">
+                    <div class="badge premium">プレミアム</div>
+                    <h3>完全サポートプラン</h3>
+                    <div class="price premium">¥19,800</div>
+                    <ul style="text-align: left; margin-bottom: 20px;">
+                        <li>全て含む</li>
+                        <li>専門家相談</li>
+                        <li>定期メンテナンス</li>
+                        <li>年間サポート</li>
+                    </ul>
+                    <a href="#" class="pricing-button premium">最高の安心を</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最終CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>大切な人に安心をプレゼント</h2>
+            <p>今すぐ始めて、離れて暮らす家族に安心を届けましょう</p>
+            <a href="https://docs.google.com/forms/d/1SHmtWaVHirPunYI15_FbH1OHqNqpdaA7p65y_RYNC0o/preview" class="final-cta-button" target="_blank" rel="noopener noreferrer">
+                今すぐ安心をプレゼント
+            </a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SafeNest</h3>
+                    <a href="#">会社概要</a>
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">利用規約</a>
+                </div>
+                <div class="footer-section">
+                    <h3>サポート</h3>
+                    <a href="#">よくある質問</a>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">使い方ガイド</a>
+                </div>
+                <div class="footer-section">
+                    <h3>フォロー</h3>
+                    <a href="#">Twitter</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SafeNest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

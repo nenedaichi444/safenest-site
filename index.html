@@ -236,8 +236,23 @@
             background: linear-gradient(135deg, var(--light-blue) 0%, var(--extra-light-blue) 100%);
             padding: 100px 0;
         }
-
-        .solutions h2 {
+                .original-price {
+          text-decoration: line-through;
+          font-size: 1.4rem;
+          color: var(--blue-gray-500);
+          margin-right: 10px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        
+        .discounted-price {
+          font-size: 2.8rem;
+          font-weight: 800;
+          color: var(--primary-blue);
+          display: inline-block;
+          vertical-align: middle;
+        }
+                .solutions h2 {
             font-size: 2.8rem;
             font-weight: 700;
             color: var(--blue-gray-900);
@@ -654,17 +669,20 @@
                     <a href="#" class="pricing-button starter">始める</a>
                 </div>
                 <div class="pricing-card recommended">
-                    <div class="badge recommended">推奨</div>
-                    <h3>安心プラン</h3>
-                    <div class="price recommended">¥14,800</div>
-                    <ul style="text-align: left; margin-bottom: 20px;">
-                    　 <li>充実防災セット</li>
-                        <li>防災ハンドブック</li>  
-                        <li>防災士とのグッズ選びサポート</li>
-                        <li>SafeNest AI 使い放題</li>
-                    </ul>
-                    <a href="#" class="pricing-button recommended">今すぐ始める</a>
-                </div>
+    <div class="badge recommended">推奨</div>
+    <h3>安心プラン</h3>
+    <div class="price recommended">
+        <span class="original-price">¥14,800</span>
+        <span class="discounted-price">¥7,400</span>
+    </div>
+    <ul style="text-align: left; margin-bottom: 20px;">
+        <li>充実防災セット</li>
+        <li>防災ハンドブック</li>  
+        <li>防災士とのグッズ選びサポート</li>
+        <li>SafeNest AI 使い放題</li>
+    </ul>
+    <a href="#" class="pricing-button recommended">今すぐ始める</a>
+</div>
                 <div class="pricing-card premium">
                     <div class="badge premium">プレミアム</div>
                     <h3>完全サポートプラン</h3>
